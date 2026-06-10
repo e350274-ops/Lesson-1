@@ -36,6 +36,23 @@ public class PostmanEchoTest {
     }
 
     @Test
+    public void testPostForm() {   // 👈 ВОТ ЭТА ПРАВКА ОТ УЧИТЕЛЯ
+
+        RestAssured
+                .given()
+                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                .formParam("foo1", "bar1")
+                .formParam("foo2", "bar2")
+                .when()
+                .post("https://postman-echo.com/post")
+                .then()
+                .statusCode(200)
+                .body("form.foo1", equalTo("bar1"))
+                .body("form.foo2", equalTo("bar2"))
+                .body("url", equalTo("https://postman-echo.com/post"));
+    }
+
+    @Test
     public void testPut() {
         String body = "This is expected to be sent back as part of response body.";
 
